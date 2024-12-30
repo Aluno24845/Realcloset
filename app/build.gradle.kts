@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "pt.ipt.dam.realcloset"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "pt.ipt.dam.realcloset"
