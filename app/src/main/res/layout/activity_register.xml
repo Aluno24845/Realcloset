@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_gravity="center">
+
+    <!-- Primeiros e Último Nome -->
+    <EditText
+        android:id="@+id/first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Primeiro Nome"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Último Nome"
+        android:inputType="textPersonName" />
+
+    <!-- Data de Nascimento -->
+    <EditText
+        android:id="@+id/birthdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Data de Nascimento"
+        android:inputType="date" />
+
+    <!-- Título para Opções de Perfil -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Perfil"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Opção de Perfil (Público ou Privado) -->
+    <RadioGroup
+
+        android:id="@+id/profile_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/public_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Público"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/private_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Privado" />
+    </RadioGroup>
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <!-- Senha -->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Senha"
+        android:inputType="textPassword" />
+
+    <!-- Confirmar Senha -->
+    <EditText
+        android:id="@+id/confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirmar Senha"
+        android:inputType="textPassword" />
+
+    <!-- Botão de Registo -->
+    <Button
+        android:id="@+id/register_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registar"
+        android:layout_marginTop="20dp"/>
+
+</LinearLayout>

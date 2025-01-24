@@ -1,6 +1,9 @@
 package pt.ipt.dam.realcloset
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,6 +19,9 @@ class MainActivity : AppCompatActivity() {
 
         // Configurar a Toolbar
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        // Remover o título da aplicação na Toolbar
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // Inicializar o DrawerLayout e o NavigationView
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -64,12 +70,36 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        // Carregar o fragmento de guarda-roupa (ou outro por padrão) quando a app iniciar
+        // Carregar o fragmento do Sobre (ou outro por padrão) quando a app iniciar
         if (savedInstanceState == null) {
-            val fragment = ClosetFragment()
+            val fragment = AboutFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu) // Inflar o menu na Toolbar
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_login -> {
+                // Ação para o botão Login
+                // Por exemplo, abrir a página de Login
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.action_register -> {
+                // Ação para o botão Registar
+                val intent = Intent(this, RegisterActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

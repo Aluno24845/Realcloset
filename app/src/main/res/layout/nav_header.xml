@@ -3,7 +3,7 @@
     android:layout_height="200dp"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/ic_launcher_background">
+    android:background="@color/material_dynamic_primary80">
 
     <ImageView
         android:id="@+id/nav_header_image"
