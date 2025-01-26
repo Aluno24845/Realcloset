@@ -1,20 +1,105 @@
 package pt.ipt.dam.realcloset
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var drawerLayout: DrawerLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        // Configurar a Toolbar
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        // Remover o título da aplicação na Toolbar
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        // Inicializar o DrawerLayout e o NavigationView
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+
+        // Configurar o botão do menu
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, findViewById(R.id.toolbar), R.string.open_drawer, R.string.close_drawer
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        // Ação nos itens do menu
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_profile -> {
+                    // Quando o item "Perfil" for selecionado, carregar o Fragment de Perfil
+                    val fragment = ProfileFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit()
+                }
+                R.id.nav_wardrobe -> {
+                    // Quando o item "Guarda-Roupa" for selecionado, carregar o Fragment de Closet
+                    val fragment = ClosetFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit()
+                }
+                R.id.nav_looks -> {
+                    // Quando o item "Looks" for selecionado, carregar o Fragment de Looks
+                    val fragment = LooksFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit()
+                }
+                R.id.nav_about -> {
+                    // Quando o item "Sobre" for selecionado, carregar o Fragment "Sobre"
+                    val fragment = AboutFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit()
+                }
+            }
+            drawerLayout.closeDrawers() // Fecha o menu após a seleção
+            true
+        }
+
+        // Carregar o fragmento do Sobre (ou outro por padrão) quando a app iniciar
+        if (savedInstanceState == null) {
+            val fragment = AboutFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu) // Inflar o menu na Toolbar
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_login -> {
+                // Ação para o botão Login
+                // Por exemplo, abrir a página de Login
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.action_register -> {
+                // Ação para o botão Registar
+                val intent = Intent(this, RegisterActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
