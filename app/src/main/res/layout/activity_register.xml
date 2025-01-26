@@ -11,14 +11,14 @@
         android:id="@+id/first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Primeiro Nome"
+        android:hint="Nome próprio"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Último Nome"
+        android:hint="Apelido"
         android:inputType="textPersonName" />
 
     <!-- Data de Nascimento -->
@@ -68,20 +68,20 @@
         android:hint="Email"
         android:inputType="textEmailAddress" />
 
-    <!-- Senha -->
+    <!-- Password -->
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Senha"
+        android:hint="Password"
         android:inputType="textPassword" />
 
-    <!-- Confirmar Senha -->
+    <!-- Confirmar Password -->
     <EditText
         android:id="@+id/confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Confirmar Senha"
+        android:hint="Confirmar Password"
         android:inputType="textPassword" />
 
     <!-- Botão de Registo -->
