@@ -27,7 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Data de Nascimento"
-        android:inputType="date" />
+        android:focusable="false"
+        android:clickable="true"/>
 
     <!-- Título para Opções de Perfil -->
     <TextView

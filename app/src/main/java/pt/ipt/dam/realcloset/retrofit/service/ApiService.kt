@@ -1,6 +1,5 @@
 package pt.ipt.dam.realcloset.retrofit.service
 
-import android.telecom.Call
 import pt.ipt.dam.realcloset.model.LoginRequest
 import pt.ipt.dam.realcloset.model.LoginResponse
 import pt.ipt.dam.realcloset.model.RegisterRequest
