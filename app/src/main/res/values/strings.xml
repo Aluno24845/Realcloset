@@ -8,4 +8,6 @@
     <string name="sobre">Sobre</string>
     <string name="looks">Looks</string>
     <string name="perfil">Perfil</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="explorar">Explorar</string>
 </resources>

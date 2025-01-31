@@ -72,6 +72,22 @@ class MainActivity : AppCompatActivity() {
                             .commit()
                     }
                 }
+                R.id.nav_favoritos -> {
+                    // Só mostrar para utilizadores autenticados
+                    if (sessionManager.isUserLoggedIn()) {
+                        val fragment = FavoritosFragment()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, fragment)
+                            .commit()
+                    }
+                }
+                R.id.nav_explorar -> {
+                    // Mostrar sempre, tanto para autenticados quanto para não autenticados
+                    val fragment = ExplorarFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, fragment)
+                        .commit()
+                }
                 R.id.nav_about -> {
                     // Mostrar sempre, tanto para autenticados quanto para não autenticados
                     val fragment = AboutFragment()
@@ -84,9 +100,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        // Carregar o fragmento do Sobre como padrão
+        // Carregar o fragmento do Explorar como padrão
         if (savedInstanceState == null) {
-            val fragment = AboutFragment()
+            val fragment = ExplorarFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit()
@@ -128,8 +144,8 @@ class MainActivity : AppCompatActivity() {
             R.id.action_logout -> {
                 sessionManager.logout() // Fazer logout
 
-                // Substituir o fragmento atual pelo fragmento padrão (AboutFragment)
-                val fragment = AboutFragment()
+                // Substituir o fragmento atual pelo fragmento padrão (ExplorarFragment)
+                val fragment = ExplorarFragment()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, fragment)
                     .commit()
@@ -153,14 +169,18 @@ class MainActivity : AppCompatActivity() {
         if (sessionManager.isUserLoggedIn()) {
             // Utilizadores autenticados: mostrar todos os itens, exceto "Sobre"
             menu.findItem(R.id.nav_profile).isVisible = true
+            menu.findItem(R.id.nav_explorar).isVisible = true // "Explorar" também é visível
             menu.findItem(R.id.nav_wardrobe).isVisible = true
             menu.findItem(R.id.nav_looks).isVisible = true
+            menu.findItem(R.id.nav_favoritos).isVisible = true
             menu.findItem(R.id.nav_about).isVisible = true  // "Sobre" também é visível
         } else {
             // Utilizadores não autenticados: mostrar apenas "Sobre"
             menu.findItem(R.id.nav_profile).isVisible = false
+            menu.findItem(R.id.nav_explorar).isVisible = true // "Explorar" é visível
             menu.findItem(R.id.nav_wardrobe).isVisible = false
             menu.findItem(R.id.nav_looks).isVisible = false
+            menu.findItem(R.id.nav_favoritos).isVisible = false
             menu.findItem(R.id.nav_about).isVisible = true  // "Sobre" é visível
         }
     }

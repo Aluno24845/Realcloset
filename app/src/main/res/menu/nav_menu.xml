@@ -6,21 +6,34 @@
         android:icon="@drawable/ic_person"
         android:title="Perfil" />
 
-    <!-- Item 2: Guarda-Roupa -->
+    <!-- Item 2: Explorar -->
+    <item
+        android:id="@+id/nav_explorar"
+        android:icon="@drawable/ic_explorar"
+        android:title="Explorar" />
+
+    <!-- Item 3: Guarda-Roupa -->
     <item
         android:id="@+id/nav_wardrobe"
         android:icon="@drawable/ic_closet"
         android:title="Guarda-Roupa" />
 
-    <!-- Item 3: Looks -->
+    <!-- Item 4: Looks -->
     <item
         android:id="@+id/nav_looks"
         android:icon="@drawable/ic_looks"
         android:title="Looks" />
 
-    <!-- Item 4: Sobre a App -->
+    <!-- Item 5: Favoritos -->
+    <item
+        android:id="@+id/nav_favoritos"
+        android:icon="@drawable/ic_favoritos"
+        android:title="Favoritos" />
+
+    <!-- Item 6: Sobre a App -->
     <item
         android:id="@+id/nav_about"
         android:icon="@drawable/ic_info"
         android:title="Sobre a App" />
+
 </menu>
