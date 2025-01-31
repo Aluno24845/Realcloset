@@ -14,6 +14,13 @@
         android:title="Registar"
         app:showAsAction="always"/>
 
+    <!-- Botão Logout -->
+    <item
+        android:id="@+id/action_logout"
+        android:title="Logout"
+        app:showAsAction="always"
+        android:visible="false" />
+
 </menu>
 
 
