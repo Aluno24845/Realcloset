@@ -72,6 +72,15 @@ class MainActivity : AppCompatActivity() {
                             .commit()
                     }
                 }
+                R.id.nav_favoritos -> {
+                    // Só mostrar para utilizadores autenticados
+                    if (sessionManager.isUserLoggedIn()) {
+                        val fragment = FavoritosFragment()
+                        supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, fragment)
+                            .commit()
+                    }
+                }
                 R.id.nav_about -> {
                     // Mostrar sempre, tanto para autenticados quanto para não autenticados
                     val fragment = AboutFragment()

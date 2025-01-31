@@ -18,9 +18,16 @@
         android:icon="@drawable/ic_looks"
         android:title="Looks" />
 
-    <!-- Item 4: Sobre a App -->
+    <!-- Item 4: Favoritos -->
+    <item
+        android:id="@+id/nav_favoritos"
+        android:icon="@drawable/ic_favoritos"
+        android:title="Favoritos" />
+
+    <!-- Item 5: Sobre a App -->
     <item
         android:id="@+id/nav_about"
         android:icon="@drawable/ic_info"
         android:title="Sobre a App" />
+
 </menu>
