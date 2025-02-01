@@ -1,5 +1,6 @@
 package pt.ipt.dam.realcloset.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import kotlinx.coroutines.withContext
 import pt.ipt.dam.realcloset.adapter.PecasAdapter
 import pt.ipt.dam.realcloset.model.Peca
 import pt.ipt.dam.realcloset.retrofit.RetrofitInitializer
-
 import androidx.recyclerview.widget.RecyclerView
 import pt.ipt.dam.realcloset.R
 import pt.ipt.dam.realcloset.utils.SessionManager
@@ -28,6 +28,7 @@ class ExplorarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate do layout associado ao fragmento
         val view = inflater.inflate(R.layout.fragment_explorar, container, false)
         recyclerViewPecas = view.findViewById(R.id.recyclerViewPecas)
         return view
@@ -74,14 +75,15 @@ class ExplorarFragment : Fragment() {
     private fun adicionarAosFavoritos(peca: Peca) {
 
         val apiService = RetrofitInitializer().apiService()
-        val token  = sessionManager.getAuthToken()
+        val token = sessionManager.getAuthToken()
 
         lifecycleScope.launch {
             try {
                 // Chamada à API para adicionar a peça aos favoritos
-                 withContext(Dispatchers.IO) {
-                     apiService.adicionarFavorito(pecaId=peca.PecaID,  "Bearer $token")
-                 }
+                withContext(Dispatchers.IO) {
+                    apiService.adicionarFavorito(pecaId=peca.PecaID,  "Bearer $token")
+                }
+                // Exibe uma mensagem ao utilizador após adicionar aos favoritos
                 Toast.makeText(requireContext(), "${peca.Titulo} adicionado aos favoritos!", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Erro ao adicionar favorito: ${e.message}", Toast.LENGTH_LONG).show()

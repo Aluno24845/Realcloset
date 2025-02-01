@@ -33,6 +33,12 @@ interface ApiService {
         @Path("id") pecaId: Int,
         @Header("Authorization") token: String
     )
+
+    // Endpoint para buscar os favoritos
+    @GET("favoritos")
+    suspend fun getFavoritos(
+        @Header("Authorization") token: String
+    ): List<Peca>
 }
 
 
