@@ -1,59 +1,91 @@
-package pt.ipt.dam.realcloset
+package pt.ipt.dam.realcloset.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import pt.ipt.dam.realcloset.R
+import pt.ipt.dam.realcloset.adapter.PecasAdapter
+import pt.ipt.dam.realcloset.model.Peca
+import pt.ipt.dam.realcloset.retrofit.RetrofitInitializer
+import pt.ipt.dam.realcloset.utils.SessionManager
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoritosFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavoritosFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    // RecyclerView para exibir a lista de favoritos
+    private lateinit var recyclerViewFavoritos: RecyclerView
+    private lateinit var sessionManager: SessionManager // Gerenciador de sessão do utilizador
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos, container, false)
+        // Infla o layout do fragmento
+        val view = inflater.inflate(R.layout.fragment_favoritos, container, false)
+        recyclerViewFavoritos = view.findViewById(R.id.recyclerViewFavoritos)
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavoritosFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavoritosFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Inicializa o gestor de sessão
+        sessionManager = SessionManager(requireContext())
+        setupRecyclerView() // Configura a RecyclerView
+        fetchFavoritos() // Obtém a lista de favoritos
+    }
+
+    // Configura a RecyclerView com um layout linear
+    private fun setupRecyclerView() {
+        recyclerViewFavoritos.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    // Obtém a lista de favoritos
+    private fun fetchFavoritos() {
+        val apiService = RetrofitInitializer().apiService()
+        val token = sessionManager.getAuthToken() // Recupera o token de autenticação
+
+        lifecycleScope.launch {
+            try {
+                // Chama a API em contexto IO (thread de entrada/saída)
+                val response = withContext(Dispatchers.IO) {
+                    apiService.getFavoritos("Bearer $token")
                 }
+                // Define o adaptador com a lista de favoritos
+                recyclerViewFavoritos.adapter = PecasAdapter(response, true, response) { peca ->
+                    removerFavorito(peca) // Remove favorito ao clicar no item
+                }
+            } catch (e: Exception) {
+                // Mostra uma mensagem se não houver favoritos
+                Toast.makeText(requireContext(), "Sem favoritos para mostrar", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    // Remove uma peça da lista de favoritos
+    private fun removerFavorito(peca: Peca) {
+        val apiService = RetrofitInitializer().apiService()
+        val token = sessionManager.getAuthToken() // Recupera o token de autenticação
+
+        lifecycleScope.launch {
+            try {
+                // Chama a API para remover o favorito
+                apiService.removerFavorito(peca.PecaID, "Bearer $token")
+                // Mostra uma mensagem de sucesso
+                Toast.makeText(requireContext(), "${peca.Titulo} removido dos favoritos!", Toast.LENGTH_SHORT).show()
+                fetchFavoritos() // Atualiza a lista de favoritos
+            } catch (e: Exception) {
+                // Mostra uma mensagem de erro caso a remoção falhe
+                Toast.makeText(requireContext(), "Erro ao remover favorito", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
