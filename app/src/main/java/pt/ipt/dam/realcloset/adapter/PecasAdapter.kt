@@ -11,43 +11,59 @@ import pt.ipt.dam.realcloset.R
 import pt.ipt.dam.realcloset.model.Peca
 
 class PecasAdapter(
-    private val pecas: List<Peca>,
-    private val isUserLoggedIn: Boolean, // Verificar se o utilizador está autenticado
-    private val onFavoritoClick: (Peca) -> Unit
+    private val pecas: List<Peca>, // Lista de peças a ser exibida
+    private val isUserLoggedIn: Boolean, // Indica se o utilizador está autenticado
+    private var pecasFavoritas: List<Peca>, // Lista das peças favoritas do utilizador
+    private val onFavoritoClick: (Peca) -> Unit // Função a executar ao clicar no botão de favorito
 ) : RecyclerView.Adapter<PecasAdapter.PecaViewHolder>() {
 
+    // ViewHolder que mantém as referências para os elementos do layout de cada item da lista
     class PecaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titulo: TextView = view.findViewById(R.id.peca_titulo)
-        val marca: TextView = view.findViewById(R.id.peca_marca)
-        val categoria: TextView = view.findViewById(R.id.peca_categoria)
-        val btnFavorito: ImageButton = view.findViewById(R.id.btn_favorito)
+        val titulo: TextView = view.findViewById(R.id.peca_titulo) // Título da peça
+        val marca: TextView = view.findViewById(R.id.peca_marca) // Marca da peça
+        val categoria: TextView = view.findViewById(R.id.peca_categoria) // Categoria da peça
+        val btnFavorito: ImageButton = view.findViewById(R.id.btn_favorito) // Botão para marcar/desmarcar favorito
     }
 
+    // Criação de novas instâncias do ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PecaViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.peca_item, parent, false)
         return PecaViewHolder(view)
     }
 
-    // Liga os dados de uma peça a um item da lista
+    // Ligação dos dados às views do ViewHolder
     override fun onBindViewHolder(holder: PecaViewHolder, position: Int) {
         val peca = pecas[position]
-        holder.titulo.text = peca.Titulo
-        holder.marca.text = "Marca: ${peca.Marca}"
-        holder.categoria.text = "Categoria: ${peca.Categoria}"
+        holder.titulo.text = peca.Titulo // Define o título da peça
+        holder.marca.text = "Marca: ${peca.Marca}" // Define a marca da peça
+        holder.categoria.text = "Categoria: ${peca.Categoria}" // Define a categoria da peça
 
-        // Mostrar ou ocultar o botão favorito dependendo do login
+        // Verifica se a peça está nos favoritos e define a cor da estrela
+        if (pecasFavoritas.contains(peca)) {
+            holder.btnFavorito.setColorFilter(Color.YELLOW) // Estrela amarela para favorito
+        } else {
+            holder.btnFavorito.setColorFilter(Color.GRAY) // Estrela cinzenta para não favorito
+        }
+
+        // Mostra ou oculta o botão favorito dependendo do estado de login
         if (isUserLoggedIn) {
             holder.btnFavorito.visibility = View.VISIBLE
-            // Ação ao clicar no botão favorito
             holder.btnFavorito.setOnClickListener {
-                holder.btnFavorito.setColorFilter(Color.YELLOW) // Muda a cor do botão ao ser selecionado
-                onFavoritoClick(peca) // Callback para manipular a seleção da peça
+                onFavoritoClick(peca) // Executa a função ao clicar no botão
             }
         } else {
-            holder.btnFavorito.visibility = View.GONE // Oculta o botão se não houver login
+            holder.btnFavorito.visibility = View.GONE // Esconde o botão se não estiver autenticado
         }
     }
+
     // Retorna o número total de peças
     override fun getItemCount(): Int = pecas.size
+
+    // Atualiza a lista de favoritos e notifica a RecyclerView
+    fun updateFavoritos(novosFavoritos: List<Peca>) {
+        pecasFavoritas = novosFavoritos
+        notifyDataSetChanged() // Atualiza a interface
+    }
+
 }

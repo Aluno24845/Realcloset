@@ -7,6 +7,7 @@ import pt.ipt.dam.realcloset.model.RegisterRequest
 import pt.ipt.dam.realcloset.model.RegisterResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -34,7 +35,14 @@ interface ApiService {
         @Header("Authorization") token: String
     )
 
-    // Endpoint para buscar os favoritos
+    // Endpoint para remover peças dos favoritos
+    @DELETE("favoritos/{id}")
+    suspend fun removerFavorito(
+        @Path("id") pecaId: Int,
+        @Header("Authorization") token: String
+    )
+
+    // Endpoint para ir buscar os favoritos
     @GET("favoritos")
     suspend fun getFavoritos(
         @Header("Authorization") token: String
