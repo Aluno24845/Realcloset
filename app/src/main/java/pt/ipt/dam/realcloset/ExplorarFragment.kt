@@ -1,59 +1,91 @@
-package pt.ipt.dam.realcloset
+package pt.ipt.dam.realcloset.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import pt.ipt.dam.realcloset.adapter.PecasAdapter
+import pt.ipt.dam.realcloset.model.Peca
+import pt.ipt.dam.realcloset.retrofit.RetrofitInitializer
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.recyclerview.widget.RecyclerView
+import pt.ipt.dam.realcloset.R
+import pt.ipt.dam.realcloset.utils.SessionManager
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ExplorarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ExplorarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var recyclerViewPecas: RecyclerView
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_explorar, container, false)
+        val view = inflater.inflate(R.layout.fragment_explorar, container, false)
+        recyclerViewPecas = view.findViewById(R.id.recyclerViewPecas)
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ExplorarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ExplorarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Inicializa o gerenciador de sessão
+        sessionManager = SessionManager(requireContext())
+
+        // Configura o RecyclerView e inicia a procura de peças
+        setupRecyclerView()
+        fetchPecas()
+    }
+
+    private fun setupRecyclerView() {
+        // Configura o layout do RecyclerView para exibir itens na vertical
+        recyclerViewPecas.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun fetchPecas() {
+        val apiService = RetrofitInitializer().apiService()
+        val isUserLoggedIn = sessionManager.isUserLoggedIn()
+
+        // Chamada à API para buscar as peças de forma assíncrona
+        lifecycleScope.launch {
+            try {
+                val response = withContext(Dispatchers.IO) { apiService.getPecasPublic() }
+                if (response.isNotEmpty()) {
+                    // Atualiza o RecyclerView com a lista de peças
+                    recyclerViewPecas.adapter = PecasAdapter(response, isUserLoggedIn) { peca ->
+                        adicionarAosFavoritos(peca)
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Nenhuma peça encontrada.", Toast.LENGTH_SHORT).show()
                 }
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Erro ao obter peças: ${e.message}", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun adicionarAosFavoritos(peca: Peca) {
+
+        val apiService = RetrofitInitializer().apiService()
+        val token  = sessionManager.getAuthToken()
+
+        lifecycleScope.launch {
+            try {
+                // Chamada à API para adicionar a peça aos favoritos
+                 withContext(Dispatchers.IO) {
+                     apiService.adicionarFavorito(pecaId=peca.PecaID,  "Bearer $token")
+                 }
+                Toast.makeText(requireContext(), "${peca.Titulo} adicionado aos favoritos!", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Erro ao adicionar favorito: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }
