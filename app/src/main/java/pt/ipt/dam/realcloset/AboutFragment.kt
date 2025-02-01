@@ -14,7 +14,7 @@ import android.content.Intent
 // Definição do fragmento "AboutFragment", que exibe informações sobre o projeto, autores e bibliotecas
 class AboutFragment : Fragment() {
 
-    // Método responsável por criar e configurar a interface do fragmento
+    // Criar e configurar a interface do fragmento
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
