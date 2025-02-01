@@ -1,15 +1,20 @@
 package pt.ipt.dam.realcloset
 
+// Importação das bibliotecas necessárias
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import android.widget.Button
+import android.content.Intent
 
+// Definição do fragmento "AboutFragment", que exibe informações sobre o projeto, autores e bibliotecas
 class AboutFragment : Fragment() {
 
+    // Método responsável por criar e configurar a interface do fragmento
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -17,19 +22,10 @@ class AboutFragment : Fragment() {
         // Infla o layout do fragmento
         val view = inflater.inflate(R.layout.fragment_about, container, false)
 
-        // Configura as informações do projeto
-        val courseInfo = view.findViewById<TextView>(R.id.course_info)
+        // Configura o elemento de interface que mostra as informações sobre biblioteca e frameworks
         val librariesInfo = view.findViewById<TextView>(R.id.libraries_info)
 
-        // Configura as informações dos autores
-        val author1Name = view.findViewById<TextView>(R.id.author1_name)
-        val author1Number = view.findViewById<TextView>(R.id.author1_number)
-        val author1Picture = view.findViewById<ImageView>(R.id.author1_picture)
-        val author2Name = view.findViewById<TextView>(R.id.author2_name)
-        val author2Number = view.findViewById<TextView>(R.id.author2_number)
-        val author2Picture = view.findViewById<ImageView>(R.id.author2_picture)
-
-        // Informação sobre bibliotecas e frameworks
+        // Preenche o TextView com as informações sobre as bibliotecas e frameworks utilizados no projeto
         librariesInfo.text = """
             - Android SDK: Para desenvolvimento da aplicação.
             - androidx.core: Extensões Kotlin para operações no Android.
@@ -40,6 +36,16 @@ class AboutFragment : Fragment() {
             - OkHttp: Logging de chamadas HTTP.
         """.trimIndent()
 
+        // Configura o botão que, ao ser clicado, abrirá a política de privacidade no browser
+        val privacyButton = view.findViewById<Button>(R.id.privacy_policy_button)
+        privacyButton.setOnClickListener {
+            // Cria uma Intent para abrir o URL da política de privacidade no browser
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://aluno24845.github.io/Realcloset/politica_privacidade.html")
+            startActivity(intent)
+        }
+
+        // Retorna a vista configurada para o fragmento
         return view
     }
 }

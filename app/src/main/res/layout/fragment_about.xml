@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Layout principal dentro de um ScrollView para permitir a rolagem em ecrãs menores -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <!-- Container principal com orientação vertical para organizar os elementos -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Informação do curso -->
+        <!-- Informação do curso , disciplina e ano letivo-->
         <TextView
             android:id="@+id/course_info"
             android:layout_width="match_parent"
@@ -29,7 +31,7 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <!-- Informação dos autores -->
+        <!-- Container para a informação dos autores -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,6 +45,7 @@
                 android:gravity="center"
                 android:paddingBottom="24dp">
 
+                <!-- Imagem do primeiro autor -->
                 <ImageView
                     android:id="@+id/author1_picture"
                     android:layout_width="255dp"
@@ -52,6 +55,7 @@
                     android:contentDescription="Foto do autor"
                     android:scaleType="centerCrop" />
 
+                <!-- Nome do primeiro autor -->
                 <TextView
                     android:id="@+id/author1_name"
                     android:layout_width="wrap_content"
@@ -62,6 +66,7 @@
                     android:gravity="center"
                     android:layout_marginTop="8dp" />
 
+                <!-- Número do primeiro autor -->
                 <TextView
                     android:id="@+id/author1_number"
                     android:layout_width="wrap_content"
@@ -80,6 +85,7 @@
                 android:gravity="center"
                 android:paddingBottom="24dp">
 
+                <!-- Imagem do segundo autor -->
                 <ImageView
                     android:id="@+id/author2_picture"
                     android:layout_width="255dp"
@@ -89,6 +95,7 @@
                     android:contentDescription="Foto do autor"
                     android:scaleType="centerCrop" />
 
+                <!-- Nome do segundo autor -->
                 <TextView
                     android:id="@+id/author2_name"
                     android:layout_width="wrap_content"
@@ -99,6 +106,7 @@
                     android:gravity="center"
                     android:layout_marginTop="8dp" />
 
+                <!-- Número do segundo autor -->
                 <TextView
                     android:id="@+id/author2_number"
                     android:layout_width="wrap_content"
@@ -123,7 +131,7 @@
             android:paddingTop="16dp"
             android:paddingBottom="8dp" />
 
-        <!-- Informação das bibliotecas -->
+        <!-- Informação das bibliotecas, preenchida dinamicamente -->
         <TextView
             android:id="@+id/libraries_info"
             android:layout_width="match_parent"
@@ -132,6 +140,7 @@
             android:paddingTop="4dp"
             android:paddingBottom="16dp" />
 
+        <!-- Botão para abrir a política de privacidade -->
         <Button
             android:id="@+id/privacy_policy_button"
             android:layout_width="match_parent"
