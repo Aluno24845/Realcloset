@@ -1,59 +1,76 @@
 package pt.ipt.dam.realcloset
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Base64
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import pt.ipt.dam.realcloset.retrofit.RetrofitInitializer
 
 /**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Fragmento responsável por mostrar o perfil do utilizador logado.
  */
 class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
+        // Infla o layout do fragmento a partir do XML.
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        // Recupera o token de autenticação armazenado nas SharedPreferences.
+        val sharedPreferences = requireContext().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("auth_token",null)
+
+        // Se o token for nulo, apresentar mensagem de erro
+        if (token == null) {
+            Toast.makeText(requireContext(), "Utilizador não autenticado", Toast.LENGTH_SHORT)
+                .show()
+            return view
+        }
+
+        // Inicializar o cliente Retrofit para requisições à API
+        val apiService = RetrofitInitializer().apiService()
+
+        // Utiliza uma Coroutine para executar a chamada à API de forma assíncrona.
+       lifecycleScope.launch {
+           try {
+               // Realiza a requisição ao endpoint para obter o utilizador logado.
+               val response = apiService.getLoggedUser("Bearer $token")
+
+               // Verifica se a resposta da API foi bem-sucedida.
+               if (response.isSuccessful) {
+                   val user = response.body()
+                   if (user != null) {
+                       // Recupera as referências aos elementos da interface gráfica.
+                       val profileName = view.findViewById<TextView>(R.id.profile_name)
+                       val profileEmail = view.findViewById<TextView>(R.id.profile_email)
+                       val profileDetails = view.findViewById<TextView>(R.id.profile_details)
+
+                       // Preenche os campos do perfil com as informações do utilizador.
+                       profileName.text = "${user.nome ?: "Sem nome"} ${user.apelido ?: ""}"
+                       profileEmail.text = user.email ?: "Email não disponível"
+                       profileDetails.text = "Data de nascimento: ${user.dataNascimento ?: "N/D"}\nTipo de perfil: ${user.tipoDePerfil ?: "N/D"}"
+                   } else {
+                       // Caso o utilizador não seja encontrado, apresenta uma mensagem de erro.
+                       Toast.makeText(requireContext(), "Utilizador não encontrado", Toast.LENGTH_SHORT).show()
+                   }
+               } else {
+                   // Apresenta uma mensagem de erro caso a resposta não seja bem-sucedida.
+                   Toast.makeText(requireContext(), "Erro: ${response.code()}", Toast.LENGTH_SHORT).show()
+               }
+           } catch (e: Exception) {
+               // Captura erros de comunicação e apresenta uma mensagem de erro.
+               Toast.makeText(requireContext(), "Erro de comunicação: ${e.message}", Toast.LENGTH_SHORT).show()
+           }
+       }
+       return view
     }
 }

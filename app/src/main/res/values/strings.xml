@@ -10,4 +10,15 @@
     <string name="perfil">Perfil</string>
     <string name="favoritos">Favoritos</string>
     <string name="explorar">Explorar</string>
+    <string name="profile_picture">Foto de perfil</string>
+    <string name="user_name_placeholder">Nome do Utilizador</string>
+    <string name="user_email_placeholder">Email do Utilizador</string>
+    <string name="user_details_placeholder">Detalhes do Utilizador...</string>
+    <string name="save_email">Guardar Email</string>
+    <string name="save_profile_type">Guardar Tipo de Perfil</string>
+    <string name="save_password">Guardar Password</string>
+    <string name="edit_email">Editar Email</string>
+    <string name="edit_profile_type">Editar Tipo de Perfil</string>
+    <string name="edit_password">Editar Password</string>
+
 </resources>

@@ -5,6 +5,8 @@ import pt.ipt.dam.realcloset.model.LoginResponse
 import pt.ipt.dam.realcloset.model.Peca
 import pt.ipt.dam.realcloset.model.RegisterRequest
 import pt.ipt.dam.realcloset.model.RegisterResponse
+import pt.ipt.dam.realcloset.model.User
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -33,6 +35,19 @@ interface ApiService {
         @Path("id") pecaId: Int,
         @Header("Authorization") token: String
     )
+
+    // Endpoint para buscar informações de um utilizador consoante o seu id
+    @GET("utilizador/{id}")
+    suspend fun getUtilizador(
+        @Header("Authorization") token: String,
+        @Path("id") utilizadorId: Int
+    ): Response<User>
+
+    // Endpoint para buscar informações do utilizador logado
+    @GET("utilizador/me")
+    suspend fun getLoggedUser(@Header("Authorization") token: String): Response<User>
+
+
 }
 
 

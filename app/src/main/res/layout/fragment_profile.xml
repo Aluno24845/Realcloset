@@ -1,14 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/perfil" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
 
-</FrameLayout>
+        <!-- Nome completo -->
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_name_placeholder"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_email_placeholder"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Informações adicionais -->
+        <TextView
+            android:id="@+id/profile_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_details_placeholder"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Campo para editar o email -->
+        <EditText
+            android:id="@+id/profile_email_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_email"
+            android:inputType="textEmailAddress"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botão para editar o email -->
+        <Button
+            android:id="@+id/save_email_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_email"
+            android:layout_marginBottom="16dp"
+            android:background="@color/azul"/>
+
+        <!-- Campo para editar o tipo de perfil -->
+        <EditText
+            android:id="@+id/profile_type_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_profile_type"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Botão para editar o tipo de perfil -->
+        <Button
+            android:id="@+id/save_profile_type_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@color/azul"
+            android:text="@string/save_profile_type" />
+
+        <!-- Campo para editar a password -->
+        <EditText
+            android:id="@+id/profile_password_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edit_password"
+            android:inputType="textPassword"
+            android:layout_marginBottom="16dp"
+            />
+
+        <!-- Botão para editar a password -->
+        <Button
+            android:id="@+id/save_password_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_password"
+            android:layout_marginBottom="16dp"
+            android:background="@color/azul"/>
+
+    </LinearLayout>
+</ScrollView>
