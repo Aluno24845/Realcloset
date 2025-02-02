@@ -12,6 +12,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 // Interface onde se indicam os endpoints da API
@@ -47,7 +48,13 @@ interface ApiService {
     @GET("utilizador/me")
     suspend fun getLoggedUser(@Header("Authorization") token: String): Response<User>
 
-
+    // Endpoint para atualizar as informações de um utilizador específico, dado o seu id
+    @PUT("utilizador/{id}")
+    suspend fun updateUser(
+        @Header("Authorization") token: String,
+        @Path("id") userId: Int,
+        @Body data: Map<String, String>
+    ): Response<Void>
 }
 
 

@@ -10,7 +10,18 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <!-- Nome completo -->
+        <!-- Texto informativo -->
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/info_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Nome completo do utilizador-->
         <TextView
             android:id="@+id/profile_name"
             android:layout_width="wrap_content"
@@ -21,7 +32,7 @@
             android:gravity="center"
             android:layout_marginBottom="8dp" />
 
-        <!-- Email -->
+        <!-- Email atual do utilizador -->
         <TextView
             android:id="@+id/profile_email"
             android:layout_width="wrap_content"
@@ -31,7 +42,7 @@
             android:gravity="center"
             android:layout_marginBottom="16dp" />
 
-        <!-- Informações adicionais -->
+        <!-- Informações adicionais (data de nascimento e tipo de perfil) -->
         <TextView
             android:id="@+id/profile_details"
             android:layout_width="wrap_content"
@@ -40,7 +51,20 @@
             android:gravity="center"
             android:layout_marginBottom="8dp" />
 
-        <!-- Campo para editar o email -->
+        <!-- Texto informativo -->
+        <TextView
+            android:id="@+id/edit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="50dp"/>
+
+
+        <!-- Campo para o utilizador editar o seu email -->
         <EditText
             android:id="@+id/profile_email_edit"
             android:layout_width="match_parent"
@@ -49,7 +73,7 @@
             android:inputType="textEmailAddress"
             android:layout_marginBottom="16dp" />
 
-        <!-- Botão para editar o email -->
+        <!-- Botão para salvar as alterações no email -->
         <Button
             android:id="@+id/save_email_button"
             android:layout_width="match_parent"
@@ -58,15 +82,29 @@
             android:layout_marginBottom="16dp"
             android:background="@color/azul"/>
 
-        <!-- Campo para editar o tipo de perfil -->
-        <EditText
-            android:id="@+id/profile_type_edit"
+        <!-- RadioButtons para o tipo de perfil -->
+        <RadioGroup
+            android:id="@+id/profile_type_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/edit_profile_type"
-            android:layout_marginBottom="16dp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
 
-        <!-- Botão para editar o tipo de perfil -->
+            <RadioButton
+                android:id="@+id/public_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/public_profile"
+                android:layout_marginEnd="8dp" />
+
+            <RadioButton
+                android:id="@+id/private_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/private_profile" />
+        </RadioGroup>
+
+        <!-- Botão para salvar as alterações no tipo de perfil -->
         <Button
             android:id="@+id/save_profile_type_button"
             android:layout_width="match_parent"
@@ -75,17 +113,16 @@
             android:background="@color/azul"
             android:text="@string/save_profile_type" />
 
-        <!-- Campo para editar a password -->
+        <!-- Campo para o utilizador editar a sua password -->
         <EditText
             android:id="@+id/profile_password_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/edit_password"
             android:inputType="textPassword"
-            android:layout_marginBottom="16dp"
-            />
+            android:layout_marginBottom="16dp" />
 
-        <!-- Botão para editar a password -->
+        <!-- Botão para salvar as alterações na password -->
         <Button
             android:id="@+id/save_password_button"
             android:layout_width="match_parent"

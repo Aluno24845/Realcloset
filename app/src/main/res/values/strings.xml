@@ -20,5 +20,8 @@
     <string name="edit_email">Editar Email</string>
     <string name="edit_profile_type">Editar Tipo de Perfil</string>
     <string name="edit_password">Editar Password</string>
-
+    <string name="public_profile">Público</string>
+    <string name="private_profile">Privado</string>
+    <string name="edit_title">Edite as suas informações</string>
+    <string name="info_title">Estas são as suas informações:</string>
 </resources>
