@@ -34,6 +34,9 @@ android {
         jvmTarget = "1.8"
     }
     buildToolsVersion = "35.0.0"
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -44,12 +47,25 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.material3.android)
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.androidx.camera.extensions)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
+
+
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
 
+    implementation ("com.github.bumptech.glide:glide:4.15.1") // Verifique se está usando a versão mais recente
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 }

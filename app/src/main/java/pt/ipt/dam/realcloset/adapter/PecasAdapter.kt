@@ -1,6 +1,8 @@
 package pt.ipt.dam.realcloset.adapter
 
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +44,8 @@ class PecasAdapter(
         holder.marca.text = "Marca: ${peca.Marca}" // Define a marca da peça
         holder.categoria.text = "Categoria: ${peca.Categoria}" // Define a categoria da peça
         holder.referencia.text = "Referência: ${peca.Referencia}" // Exibe a referência
-        //holder.imagem.setImageResource(peca.Imagem) // Atribui a imagem da peça, supondo que a peça tenha um ID de recurso de imagem
+
+        mostrarImagemBase64(peca.Imagem, holder.imagem)
 
         // Verifica se a peça está nos favoritos e define a cor da estrela
         if (pecasFavoritas.contains(peca)) {
@@ -70,5 +73,18 @@ class PecasAdapter(
         pecasFavoritas = novosFavoritos
         notifyDataSetChanged() // Atualiza a interface
     }
+    fun mostrarImagemBase64(base64String: String, imageView: ImageView) {
+        try {
+            // Decodifica a string Base64 para bytes
+            val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
 
+            // Converte os bytes para Bitmap
+            val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+
+            // Mostra a imagem no ImageView
+            imageView.setImageBitmap(bitmap)
+        } catch (e: Exception) {
+            e.printStackTrace() // Tratar erro em caso de string inválida
+        }
+    }
 }

@@ -56,10 +56,8 @@ class ClosetAdapter(
         holder.categoria.visibility = View.GONE // Esconde a categoria
         holder.btnFavorito.visibility = View.GONE // Esconde o botão
 
-        //holder.imagem.setImageResource(peca.Imagem) // Atribui a imagem da peça, supondo que a peça tenha um ID de recurso de imagem
         mostrarImagemBase64(peca.Imagem, holder.imagem)
     }
-
     // Retorna o número total de peças
     override fun getItemCount(): Int = pecas.size
 
@@ -77,8 +75,6 @@ class ClosetAdapter(
             e.printStackTrace() // Tratar erro em caso de string inválida
         }
     }
-
-
 }
 
 

@@ -1,9 +1,11 @@
 package pt.ipt.dam.realcloset.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +17,7 @@ import pt.ipt.dam.realcloset.retrofit.RetrofitInitializer
 import pt.ipt.dam.realcloset.utils.SessionManager
 import androidx.recyclerview.widget.RecyclerView
 import pt.ipt.dam.realcloset.R
+import pt.ipt.dam.realcloset.activities.AdicionarPecaActivity
 import pt.ipt.dam.realcloset.adapter.ClosetAdapter
 
 class ClosetFragment : Fragment() {
@@ -24,6 +27,7 @@ class ClosetFragment : Fragment() {
     private lateinit var recyclerCalcado: RecyclerView
     private lateinit var recyclerAcessorios: RecyclerView
     private lateinit var sessionManager: SessionManager
+    private lateinit var adicionarButton: Button  // Definir o botão
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +39,7 @@ class ClosetFragment : Fragment() {
         recyclerPartesBaixo = view.findViewById(R.id.recycler_partes_baixo)
         recyclerCalcado = view.findViewById(R.id.recycler_calcado)
         recyclerAcessorios = view.findViewById(R.id.recycler_acessorios)
+        adicionarButton = view.findViewById(R.id.adicionar_button)  // Referencia o botão
 
         return view
     }
@@ -48,6 +53,14 @@ class ClosetFragment : Fragment() {
         setupRecyclerView()
 
         fetchPecas()
+
+        // Configura o clique no botão "Adicionar"
+        adicionarButton.setOnClickListener {
+            Toast.makeText(requireContext(), "Botão clicado!", Toast.LENGTH_SHORT).show()
+            // Inicia a AdicionarPecaActivity quando o botão for clicado
+            val intent = Intent(requireContext(), AdicionarPecaActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     // Configura o layout do RecyclerView
@@ -100,9 +113,4 @@ class ClosetFragment : Fragment() {
             }
         }
     }
-
-
-
-
-
 }
