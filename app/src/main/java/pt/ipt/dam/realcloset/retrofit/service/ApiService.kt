@@ -47,7 +47,12 @@ interface ApiService {
     suspend fun getFavoritos(
         @Header("Authorization") token: String
     ): List<Peca>
-}
 
+    // Endpoint para ir buscar os favoritos
+    @GET("pecas")
+    suspend fun getPecas(
+        @Header("Authorization") token: String
+    ): List<Peca>
+}
 
 

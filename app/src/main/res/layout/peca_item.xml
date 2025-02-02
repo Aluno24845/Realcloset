@@ -10,30 +10,64 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
 
-        <TextView
-            android:id="@+id/peca_titulo"
+        <!-- Container para os atributos da peça, com centralização vertical -->
+        <LinearLayout
+            android:layout_width="266dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"> <!-- Centraliza verticalmente os atributos -->
+
+            <!-- Título da Peça -->
+            <TextView
+                android:id="@+id/peca_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Marca da Peça -->
+            <TextView
+                android:id="@+id/peca_marca"
+                android:layout_width="186dp"
+                android:layout_height="wrap_content"
+                android:text="Marca da Peça" />
+
+            <!-- Referência da Peça -->
+            <TextView
+                android:id="@+id/peca_referencia"
+                android:layout_width="188dp"
+                android:layout_height="wrap_content"
+                android:text="Referência" />
+
+            <!-- Categoria da Peça -->
+            <TextView
+                android:id="@+id/peca_categoria"
+                android:layout_width="186dp"
+                android:layout_height="wrap_content"
+                android:text="Categoria da Peça" />
+        </LinearLayout>
+
+        <!-- Imagem da Peça -->
+        <ImageView
+            android:id="@+id/peca_imagem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_gravity="end"
+            android:src="@drawable/ic_launcher_background" /> <!-- Imagem alinhada à direita -->
 
-        <TextView
-            android:id="@+id/peca_marca"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/peca_categoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageButton
-            android:id="@+id/btn_favorito"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/btn_star_big_off"
-            android:background="@null" />
     </LinearLayout>
+
+    <!-- Botão Favorito -->
+    <ImageButton
+        android:id="@+id/btn_favorito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/btn_star_big_off"
+        android:background="@null"
+        android:layout_gravity="end" /> <!-- Botão à direita -->
+
 </androidx.cardview.widget.CardView>
