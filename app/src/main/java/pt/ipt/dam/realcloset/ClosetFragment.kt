@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pt.ipt.dam.realcloset.R
 import pt.ipt.dam.realcloset.activities.AdicionarPecaActivity
 import pt.ipt.dam.realcloset.adapter.ClosetAdapter
+import pt.ipt.dam.realcloset.model.Peca
 
 class ClosetFragment : Fragment() {
 
@@ -89,18 +90,18 @@ class ClosetFragment : Fragment() {
                     val calcado = response.filter { it.Categoria == "Calçado" }
                     val acessorios = response.filter { it.Categoria == "Acessórios" }
 
-                    // Verifica se alguma lista está vazia antes de passar para o adapter
-                    if (partesCima.isNotEmpty()) {
-                        recyclerPartesCima.adapter = ClosetAdapter(partesCima)
+                    // Passa a função de remoção para o adapter
+                    recyclerPartesCima.adapter = ClosetAdapter(partesCima.toMutableList()) { peca ->
+                        removePeca(peca)
                     }
-                    if (partesBaixo.isNotEmpty()) {
-                        recyclerPartesBaixo.adapter = ClosetAdapter(partesBaixo)
+                    recyclerPartesBaixo.adapter = ClosetAdapter(partesBaixo.toMutableList()) { peca ->
+                        removePeca(peca)
                     }
-                    if (calcado.isNotEmpty()) {
-                        recyclerCalcado.adapter = ClosetAdapter(calcado)
+                    recyclerCalcado.adapter = ClosetAdapter(calcado.toMutableList()) { peca ->
+                        removePeca(peca)
                     }
-                    if (acessorios.isNotEmpty()) {
-                        recyclerAcessorios.adapter = ClosetAdapter(acessorios)
+                    recyclerAcessorios.adapter = ClosetAdapter(acessorios.toMutableList()) { peca ->
+                        removePeca(peca)
                     }
 
                 } else {
@@ -110,6 +111,37 @@ class ClosetFragment : Fragment() {
             } catch (e: Exception) {
                 // Tratar erros, como problemas de rede
                 Toast.makeText(requireContext(), "Erro ao obter peças: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun removePeca(peca: Peca) {
+        val apiService = RetrofitInitializer().apiService()
+        val token = sessionManager.getAuthToken()
+
+        lifecycleScope.launch {
+            try {
+                // Faz a solicitação para remover a peça
+                val response = withContext(Dispatchers.IO) {
+                    apiService.removerPeca( peca.PecaID, "Bearer $token")
+                }
+
+                // Verifica se houve resposta
+                if (response != null) {
+                    // Sucesso: peça removida com sucesso
+                    Toast.makeText(requireContext(), "Peça removida com sucesso", Toast.LENGTH_LONG).show()
+
+                    // Aqui você pode fazer o fetch novamente para atualizar a lista de peças
+                    fetchPecas()  // Atualiza a lista de peças após a remoção
+
+                } else {
+                    // Falha: a resposta da API não indica sucesso
+                    Toast.makeText(requireContext(), "Falha ao remover peça", Toast.LENGTH_LONG).show()
+                }
+
+
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "Erro de rede: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }

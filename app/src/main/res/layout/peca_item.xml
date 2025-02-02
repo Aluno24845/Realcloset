@@ -69,4 +69,13 @@
         android:layout_gravity="end"
         android:background="@null"
         android:src="@android:drawable/btn_star_big_off" />
+
+    <ImageButton
+        android:id="@+id/btn_eliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_delete" />
+
 </androidx.cardview.widget.CardView>

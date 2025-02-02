@@ -28,6 +28,7 @@ class PecasAdapter(
         val imagem: ImageView = view.findViewById(R.id.peca_imagem) // Imagem
         val categoria: TextView = view.findViewById(R.id.peca_categoria) // Categoria da peça
         val btnFavorito: ImageButton = view.findViewById(R.id.btn_favorito) // Botão para marcar/desmarcar favorito
+        val btnEliminar: ImageButton = view.findViewById(R.id.btn_eliminar) // Botão para eliminar
     }
 
     // Criação de novas instâncias do ViewHolder
@@ -46,6 +47,8 @@ class PecasAdapter(
         holder.referencia.text = "Referência: ${peca.Referencia}" // Exibe a referência
 
         mostrarImagemBase64(peca.Imagem, holder.imagem)
+
+        holder.btnEliminar.setVisibility(View.GONE);
 
         // Verifica se a peça está nos favoritos e define a cor da estrela
         if (pecasFavoritas.contains(peca)) {

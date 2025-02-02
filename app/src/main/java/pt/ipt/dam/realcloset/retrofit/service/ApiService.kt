@@ -66,6 +66,14 @@ interface ApiService {
         @Part file: MultipartBody.Part,
         @Part("peca") peca: RequestBody
     ): Response<ResponseBody>
+
+    // Endpoint para remover peças
+    @DELETE("pecas/{id}")
+    suspend fun removerPeca(
+        @Path("id") pecaId: Int,
+        @Header("Authorization") token: String
+    )
+
 }
 
 

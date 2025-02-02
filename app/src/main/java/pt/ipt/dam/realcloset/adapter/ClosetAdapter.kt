@@ -13,7 +13,8 @@ import pt.ipt.dam.realcloset.model.Peca
 import android.util.Base64
 
 class ClosetAdapter(
-    private val pecas: List<Peca>
+    private val pecas: MutableList<Peca>,
+    private val onRemoveClick: (Peca) -> Unit // Função a executar ao clicar no botão de eliminar
 ) : RecyclerView.Adapter<ClosetAdapter.ClosetViewHolder>() {
 
     // ViewHolder que mantém as referências para os elementos do layout de cada item da lista
@@ -24,6 +25,7 @@ class ClosetAdapter(
         val imagem: ImageView = view.findViewById(R.id.peca_imagem) // Imagem
         val categoria: TextView = view.findViewById(R.id.peca_categoria) // Categoria da peça
         val btnFavorito: ImageButton = view.findViewById(R.id.btn_favorito) // Botão para marcar/desmarcar favorito
+        val btnEliminar: ImageButton = view.findViewById(R.id.btn_eliminar) // Botão para eliminar
     }
 
 
@@ -53,8 +55,17 @@ class ClosetAdapter(
         }
 
 
+        holder.btnEliminar.setVisibility(View.VISIBLE) // Mostra o botão de eliminar
+
+
+
         holder.categoria.visibility = View.GONE // Esconde a categoria
         holder.btnFavorito.visibility = View.GONE // Esconde o botão
+
+        // Ação para eliminar a peça
+        holder.btnEliminar.setOnClickListener {
+            onRemoveClick(peca) // Chama a função para remover a peça
+        }
 
         mostrarImagemBase64(peca.Imagem, holder.imagem)
     }
@@ -74,6 +85,12 @@ class ClosetAdapter(
         } catch (e: Exception) {
             e.printStackTrace() // Tratar erro em caso de string inválida
         }
+    }
+
+    fun updatePecas(pecasAtualizadas: MutableList<Peca>) {
+        pecas.clear()
+        pecas.addAll(pecasAtualizadas)
+        notifyDataSetChanged() // Atualiza a interface
     }
 }
 
