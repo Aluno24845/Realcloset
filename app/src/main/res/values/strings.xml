@@ -9,7 +9,7 @@
     <string name="looks">Looks</string>
     <string name="perfil">Perfil</string>
     <string name="favoritos">Favoritos</string>
-    <string name="explorar">Explorar</string>
+    <string name="explorar">Explorar</string>  
     <string name="profile_picture">Foto de perfil</string>
     <string name="user_name_placeholder">Nome do Utilizador</string>
     <string name="user_email_placeholder">Email do Utilizador</string>
@@ -24,4 +24,5 @@
     <string name="private_profile">Privado</string>
     <string name="edit_title">Edite as suas informações</string>
     <string name="info_title">Estas são as suas informações:</string>
+
 </resources>

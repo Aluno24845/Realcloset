@@ -1,39 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="130dp"
     android:layout_margin="8dp"
-    android:padding="12dp"
-    android:elevation="4dp">
+    android:elevation="4dp"
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="130dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/peca_titulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <!-- Container para os atributos da peça -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/peca_marca"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <!-- Título da Peça -->
+            <TextView
+                android:id="@+id/peca_titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Título da Peça"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/peca_categoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <!-- Marca da Peça -->
+            <TextView
+                android:id="@+id/peca_marca"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Marca da Peça" />
 
-        <ImageButton
-            android:id="@+id/btn_favorito"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/btn_star_big_off"
-            android:background="@null" />
+            <!-- Referência da Peça -->
+            <TextView
+                android:id="@+id/peca_referencia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Referência da Peça" />
+
+            <!-- Categoria da Peça -->
+            <TextView
+                android:id="@+id/peca_categoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categoria da Peça" />
+        </LinearLayout>
+
+        <!-- Imagem com altura proporcional ao card -->
+        <ImageView
+            android:id="@+id/peca_imagem"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background" />
+
     </LinearLayout>
+
+    <!-- Botão Favorito -->
+    <ImageButton
+        android:id="@+id/btn_favorito"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@null"
+        android:src="@android:drawable/btn_star_big_off" />
+
+    <ImageButton
+        android:id="@+id/btn_eliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@null"
+        android:src="@android:drawable/ic_menu_delete" />
+
 </androidx.cardview.widget.CardView>

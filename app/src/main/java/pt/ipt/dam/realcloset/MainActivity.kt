@@ -9,8 +9,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import pt.ipt.dam.realcloset.fragments.ClosetFragment
 import pt.ipt.dam.realcloset.fragments.ExplorarFragment
 import pt.ipt.dam.realcloset.fragments.FavoritosFragment
+import pt.ipt.dam.realcloset.fragments.LooksFragment
 import pt.ipt.dam.realcloset.utils.SessionManager
 
 class MainActivity : AppCompatActivity() {
