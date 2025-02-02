@@ -1,59 +1,51 @@
 package pt.ipt.dam.realcloset
 
+// Importação das bibliotecas necessárias
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import android.widget.Button
+import android.content.Intent
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [AboutFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+// Definição do fragmento "AboutFragment", que exibe informações sobre o projeto, autores e bibliotecas
 class AboutFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    // Criar e configurar a interface do fragmento
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false)
-    }
+        // Infla o layout do fragmento
+        val view = inflater.inflate(R.layout.fragment_about, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AboutFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AboutFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        // Configura o elemento de interface que mostra as informações sobre biblioteca e frameworks
+        val librariesInfo = view.findViewById<TextView>(R.id.libraries_info)
+
+        // Preenche o TextView com as informações sobre as bibliotecas e frameworks utilizados no projeto
+        librariesInfo.text = """
+            - Android SDK: Para desenvolvimento da aplicação.
+            - androidx.core: Extensões Kotlin para operações no Android.
+            - androidx.appcompat: Suporte de compatibilidade com versões anteriores do Android.
+            - Material Components: Implementação de Material Design.
+            - ConstraintLayout: Layout responsivo baseado em constraints.
+            - Retrofit: Comunicação com APIs REST.
+            - OkHttp: Logging de chamadas HTTP.
+        """.trimIndent()
+
+        // Configura o botão que, ao ser clicado, abrirá a política de privacidade no browser
+        val privacyButton = view.findViewById<Button>(R.id.privacy_policy_button)
+        privacyButton.setOnClickListener {
+            // Cria uma Intent para abrir o URL da política de privacidade no browser
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://aluno24845.github.io/Realcloset/politica_privacidade.html")
+            startActivity(intent)
+        }
+
+        // Retorna a vista configurada para o fragmento
+        return view
     }
 }

@@ -9,8 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInitializer {
-    val host = "http://192.168.1.78:5000/"  // URL base da API
-     val gson: Gson = GsonBuilder().setLenient().create() // Gson para fazer parse flexível de JSON
+    val host = "http://192.168.1.40:5000/"  // URL base da API
+    val gson: Gson = GsonBuilder().setLenient().create() // Gson para fazer parse flexível de JSON
 
     // Cria uma instância do Retrofit configurada com o host e conversor Gson
     fun createRetrofit(): Retrofit {

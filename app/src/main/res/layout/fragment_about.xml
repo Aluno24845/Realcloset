@@ -1,14 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<!-- Layout principal dentro de um ScrollView para permitir a rolagem em ecrãs menores -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AboutFragment">
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Container principal com orientação vertical para organizar os elementos -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/sobre" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <!-- Informação do curso , disciplina e ano letivo-->
+        <TextView
+            android:id="@+id/course_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Curso: Engenharia Informática\nDisciplina: Desenvolvimento de Aplicações Móveis\nAno Letivo: 2024/2025"
+            android:textSize="16sp"
+            android:paddingBottom="16dp" />
+
+        <!-- Título da secção de autores -->
+        <TextView
+            android:id="@+id/authors_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:text="Autores"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <!-- Container para a informação dos autores -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Primeiro autor -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingBottom="24dp">
+
+                <!-- Imagem do primeiro autor -->
+                <ImageView
+                    android:id="@+id/author1_picture"
+                    android:layout_width="255dp"
+                    android:layout_height="340dp"
+                    android:src="@drawable/image_catarina"
+                    android:layout_gravity="center"
+                    android:contentDescription="Foto do autor"
+                    android:scaleType="centerCrop" />
+
+                <!-- Nome do primeiro autor -->
+                <TextView
+                    android:id="@+id/author1_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Catarina Zangrandi"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Número do primeiro autor -->
+                <TextView
+                    android:id="@+id/author1_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Número: 24845"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Segundo autor -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingBottom="24dp">
+
+                <!-- Imagem do segundo autor -->
+                <ImageView
+                    android:id="@+id/author2_picture"
+                    android:layout_width="255dp"
+                    android:layout_height="340dp"
+                    android:src="@drawable/image_miguel"
+                    android:layout_gravity="center"
+                    android:contentDescription="Foto do autor"
+                    android:scaleType="centerCrop" />
+
+                <!-- Nome do segundo autor -->
+                <TextView
+                    android:id="@+id/author2_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Miguel Brazão"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginTop="8dp" />
+
+                <!-- Número do segundo autor -->
+                <TextView
+                    android:id="@+id/author2_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Número: 25260"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Título da secção de bibliotecas -->
+        <TextView
+            android:id="@+id/libraries_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bibliotecas e Frameworks utilizadas"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp" />
+
+        <!-- Informação das bibliotecas, preenchida dinamicamente -->
+        <TextView
+            android:id="@+id/libraries_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingTop="4dp"
+            android:paddingBottom="16dp" />
+
+        <!-- Botão para abrir a política de privacidade -->
+        <Button
+            android:id="@+id/privacy_policy_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ver Política de Privacidade"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/azul"/>
+
+    </LinearLayout>
+</ScrollView>

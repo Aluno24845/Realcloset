@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                             val loginResponse = response.body()
                             val token = loginResponse?.token
 
-                            // Armazenar o token (exemplo, em SharedPreferences)
+                            // Armazenar o token
                             val sharedPreferences = getSharedPreferences("app_preferences", MODE_PRIVATE)
                             val editor = sharedPreferences.edit()
                             editor.putString("auth_token", token)
